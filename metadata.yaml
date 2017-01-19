@@ -1,0 +1,14 @@
+name: rsyslog-elasticsearch
+format: 2
+summary: Rsyslog elasticsearch plugin
+maintainer: bstack
+subordinate: true
+description: |
+  Rsyslog elasticsearch plugin
+tags:
+  - monitoring
+requires:
+  general-info:
+    interface: juju-info
+    scope: container
+

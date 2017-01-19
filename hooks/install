@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eux
+
+apt-get install -q -y rsyslog-elasticsearch
+
+export ELASTICHOSTS=$(config-get elastichosts)
+sed -e "s/__ELASTICHOSTS__/$ELASTICHOSTS/" < templates/rsyslog-elasticsearch.conf > /etc/rsyslog.d/rsyslog-elasticsearch.conf                                                                                              
+
+service rsyslog restart
+
