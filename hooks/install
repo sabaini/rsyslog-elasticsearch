@@ -1,10 +1,32 @@
-#!/bin/bash
-set -eux
+#!/usr/bin/python
 
-apt-get install -q -y rsyslog-elasticsearch
+import os
+import sys
 
-export ELASTICHOSTS=$(config-get elastichosts)
-sed -e "s/__ELASTICHOSTS__/$ELASTICHOSTS/" < templates/rsyslog-elasticsearch.conf > /etc/rsyslog.d/rsyslog-elasticsearch.conf                                                                                              
+sys.path.insert(0, os.path.join(os.environ['CHARM_DIR'], 'lib'))
 
-service rsyslog restart
+from charmhelpers.core import (
+    hookenv,
+    host,
+)
+from charmhelpers.fetch import (
+    apt_install,
+    apt_update,
+    add_source
+)
 
+hooks = hookenv.Hooks()
+log = hookenv.log
+
+PACKAGES=['rsyslog-elasticsearch']
+
+
+@hooks.hook('install')
+def install():
+    log('Installing rsyslog-elasticsearch')
+    apt_install(packages=PACKAGES, fatal=True)
+
+
+if __name__ == "__main__":
+    # execute a hook based on the name the program is called by
+    hooks.execute(sys.argv)

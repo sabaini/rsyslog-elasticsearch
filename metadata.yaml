@@ -1,14 +1,17 @@
 name: rsyslog-elasticsearch
-format: 2
-summary: Rsyslog elasticsearch plugin
+summary: Elasticsearch output plugin for rsyslog
 maintainer: bstack
-subordinate: true
 description: |
-  Rsyslog elasticsearch plugin
+  This plugin allows rsyslog to write syslog messages to Elasticsearch, a
+  distributed, multitenant-capable full-text search engine with a
+  RESTful web interface and schema-free JSON documents.
+subordinate: true
 tags:
   - monitoring
 requires:
   general-info:
     interface: juju-info
     scope: container
+  rest:
+    interface: elasticsearch
 

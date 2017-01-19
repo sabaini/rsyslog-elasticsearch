@@ -1,5 +1,0 @@
-#!/bin/bash
-
-export ELASTICHOSTS=$(config-get elastichosts)
-sed -e "s/__ELASTICHOSTS__/$ELASTICHOSTS/" < templates/rsyslog-elasticsearch.conf > /etc/rsyslog.d/rsyslog-elasticsearch.conf                                                                                              
-
