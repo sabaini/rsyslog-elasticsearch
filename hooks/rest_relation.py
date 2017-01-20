@@ -19,11 +19,13 @@ def get_rel_hosts():
     if relation_data is None or len(relation_data) == 0:
         hookenv.log("No relation data, exiting.")
         return []
-    hosts = [ unit_data['private-address'] for unit_data in relation_data ] 
+    hosts = [ unit_data['private-address'] for unit_data in relation_data ]
     return hosts
 
 def update_config(hosts):
-    elasticsearch = ', '.join(['"{}"'.format(s) for s in hosts])
+    ## rsyslog omelastic issue with more than one ES server
+    # elasticsearch = ', '.join(['"{}"'.format(s) for s in hosts])
+    elasticsearch = '"{}"'.format(hosts[0])
     render("rsyslog-elasticsearch.conf", RSYSLOGCONF,
            { 'elasticsearch': elasticsearch} )
 
